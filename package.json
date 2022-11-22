@@ -5,7 +5,7 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "homepage": "https://github.com/plugoinc/ts-ocpp",
-  "repository": "git://github.com/voltbras/ts-ocpp.git",
+  "repository": "git://github.com/plugoinc/ts-ocpp.git",
   "author": "plugo <dev@plugo.co.jp>",
   "license": "MIT",
   "scripts": {
