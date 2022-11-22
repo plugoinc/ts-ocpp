@@ -8,9 +8,6 @@
   "repository": "git://github.com/voltbras/ts-ocpp.git",
   "author": "plugo <dev@plugo.co.jp>",
   "license": "MIT",
-  "engines": {
-    "node": "18.x"
-  },
   "scripts": {
     "test": "jest",
     "build": "tsc && yarn copy-assets && yarn docs-ts",
