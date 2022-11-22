@@ -79,7 +79,7 @@ type RequiredPick<T, K extends keyof T> = Omit<T, K> & Required<Pick<T, K>>
  * Represents the central system, can communicate with charge points
  *
  * @example
- * import { CentralSystem } from '@voltbras/ts-ocpp';
+ * import { CentralSystem } from '@plugo/ts-ocpp';
  *
  * // port and request handler as arguments
  * const centralSystem = new CentralSystem(3000, (req, { chargePointId }) => {
@@ -95,7 +95,7 @@ type RequiredPick<T, K extends keyof T> = Omit<T, K> & Required<Pick<T, K>>
  *   }
  *   throw new Error('message not supported');
  * });
- * 
+ *
  * @category Central System
  */
 export default class CentralSystem {
@@ -238,7 +238,7 @@ export default class CentralSystem {
       debug('websocket upgrade: %s', request.url);
     });
     server.on('connection', (socket: WebSocket, _request: IncomingMessage, metadata: RequestMetadata) => this.handleConnection(socket, metadata));
-    
+
     /** validate all pre-requisites before upgrading the websocket connection */
     this.httpServer.on('upgrade', async (httpRequest, socket, head) => {
       debug('websocket upgrade: %s', httpRequest.url);

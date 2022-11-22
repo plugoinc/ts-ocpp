@@ -45,7 +45,7 @@ export declare class ChargePoint {
 **Example**
 
 ```ts
-import { ChargePoint } from '@voltbras/ts-ocpp';
+import { ChargePoint } from '@plugo/ts-ocpp';
 
 const chargePointId = '123';
 const centralSystemUrl = 'ws://central-system.com/ocpp';
@@ -84,7 +84,7 @@ sendRequest<T extends ChargePointAction>(args: CPSendRequestArgs<T, 'v1.6-json'>
 **Example**
 
 ```ts
-import { ChargePoint } from '@voltbras/ts-ocpp'
+import { ChargePoint } from '@plugo/ts-ocpp'
 
 async function communicate(chargePoint: ChargePoint) {
   const response = await chargePoint.sendRequest({ action: 'Heartbeat', ocppVersion: 'v1.6-json', payload: {} })

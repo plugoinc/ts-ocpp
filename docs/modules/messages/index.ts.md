@@ -50,7 +50,7 @@ export type Request<T extends ActionName<V>, V extends OCPPVersion = OCPPVersion
 **Example**
 
 ```ts
-import { Request } from '@voltbras/ts-ocpp'
+import { Request } from '@plugo/ts-ocpp'
 
 type ChargeRelatedRequest = Request<'StartTransaction' | 'StopTransaction'>
 ```
@@ -66,7 +66,7 @@ export type Response<T extends ActionName<V>, V extends OCPPVersion = OCPPVersio
 **Example**
 
 ```ts
-import { Response } from '@voltbras/ts-ocpp'
+import { Response } from '@plugo/ts-ocpp'
 
 type ChargeRelatedResponse = Response<'StartTransaction' | 'StopTransaction'>
 ```
