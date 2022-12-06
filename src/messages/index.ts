@@ -13,7 +13,7 @@ type ReqRes<T extends ActionName<V>, V extends OCPPVersion = OCPPVersion> =
 
 /**
  * @example
- * import { Request } from '@plugo/ts-ocpp';
+ * import { Request } from '@plugoinc/ts-ocpp';
  *
  * type ChargeRelatedRequest = Request<'StartTransaction' | 'StopTransaction'>;
  *
@@ -23,7 +23,7 @@ export type Request<T extends ActionName<V>, V extends OCPPVersion = OCPPVersion
 
 /**
  * @example
- * import { Response } from '@plugo/ts-ocpp';
+ * import { Response } from '@plugoinc/ts-ocpp';
  *
  * type ChargeRelatedResponse = Response<'StartTransaction' | 'StopTransaction'>;
  *

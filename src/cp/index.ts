@@ -24,7 +24,7 @@ export type CPSendRequestArgs<T extends ChargePointAction<V>, V extends OCPPVers
  * Represents a connection to the central system
  *
  * @example
- * import { ChargePoint } from '@plugo/ts-ocpp';
+ * import { ChargePoint } from '@plugoinc/ts-ocpp';
  *
  * const chargePointId = '123';
  * const centralSystemUrl = 'ws://central-system.com/ocpp';
@@ -77,7 +77,7 @@ export default class ChargePoint {
 
   /**
    * @example
-   * import { ChargePoint } from '@plugo/ts-ocpp';
+   * import { ChargePoint } from '@plugoinc/ts-ocpp';
    *
    * async function communicate(chargePoint: ChargePoint) {
    *   const response = await chargePoint.sendRequest({ action: 'Heartbeat', ocppVersion: 'v1.6-json', payload: {}});

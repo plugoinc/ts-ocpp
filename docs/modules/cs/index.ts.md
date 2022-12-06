@@ -46,7 +46,7 @@ export declare class CentralSystem {
 **Example**
 
 ```ts
-import { CentralSystem } from '@plugo/ts-ocpp'
+import { CentralSystem } from '@plugoinc/ts-ocpp'
 
 // port and request handler as arguments
 const centralSystem = new CentralSystem(3000, (req, { chargePointId }) => {
