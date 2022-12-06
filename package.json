@@ -9,7 +9,7 @@
   "author": "plugo <dev@plugo.co.jp>",
   "license": "MIT",
   "scripts": {
-    "test": "jest",
+    "test": "jest --forceExit",
     "build": "tsc && yarn copy-assets && yarn docs-ts",
     "copy-assets": "yarn copy-assets-wsdl && yarn copy-assets-jsonschema",
     "copy-assets-wsdl": "cp ./src/messages/soap/*.wsdl ./dist/messages/soap",
