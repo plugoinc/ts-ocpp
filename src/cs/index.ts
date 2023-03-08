@@ -123,7 +123,7 @@ export default class CentralSystem {
     this.options = {
       ...options,
       rejectInvalidRequests: options.rejectInvalidRequests ?? true,
-      websocketPingInterval: 30_000,
+      websocketPingInterval: options.websocketPingInterval ?? 30_000,
       websocketAuthorizer: options.websocketAuthorizer ?? (() => true),
     };
     debug('creating central system on port %d - options: %o', port, this.options);
