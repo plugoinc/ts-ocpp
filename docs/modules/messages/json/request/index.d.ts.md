@@ -56,7 +56,7 @@ and run json-schema-to-typescript to regenerate this file.
 
 ```ts
 export interface AuthorizeRequest {
-  idTag: string
+  idTag: string;
 }
 ```
 
@@ -70,15 +70,15 @@ and run json-schema-to-typescript to regenerate this file.
 
 ```ts
 export interface BootNotificationRequest {
-  chargePointVendor: string
-  chargePointModel: string
-  chargePointSerialNumber?: string
-  chargeBoxSerialNumber?: string
-  firmwareVersion?: string
-  iccid?: string
-  imsi?: string
-  meterType?: string
-  meterSerialNumber?: string
+  chargePointVendor: string;
+  chargePointModel: string;
+  chargePointSerialNumber?: string;
+  chargeBoxSerialNumber?: string;
+  firmwareVersion?: string;
+  iccid?: string;
+  imsi?: string;
+  meterType?: string;
+  meterSerialNumber?: string;
 }
 ```
 
@@ -92,7 +92,7 @@ and run json-schema-to-typescript to regenerate this file.
 
 ```ts
 export interface CancelReservationRequest {
-  reservationId: number
+  reservationId: number;
 }
 ```
 
@@ -106,8 +106,8 @@ and run json-schema-to-typescript to regenerate this file.
 
 ```ts
 export interface ChangeAvailabilityRequest {
-  connectorId: number
-  type: 'Inoperative' | 'Operative'
+  connectorId: number;
+  type: "Inoperative" | "Operative";
 }
 ```
 
@@ -121,8 +121,8 @@ and run json-schema-to-typescript to regenerate this file.
 
 ```ts
 export interface ChangeConfigurationRequest {
-  key: string
-  value: string
+  key: string;
+  value: string;
 }
 ```
 
@@ -148,10 +148,13 @@ and run json-schema-to-typescript to regenerate this file.
 
 ```ts
 export interface ClearChargingProfileRequest {
-  id?: number
-  connectorId?: number
-  chargingProfilePurpose?: 'ChargePointMaxProfile' | 'TxDefaultProfile' | 'TxProfile'
-  stackLevel?: number
+  id?: number;
+  connectorId?: number;
+  chargingProfilePurpose?:
+    | "ChargePointMaxProfile"
+    | "TxDefaultProfile"
+    | "TxProfile";
+  stackLevel?: number;
 }
 ```
 
@@ -165,9 +168,9 @@ and run json-schema-to-typescript to regenerate this file.
 
 ```ts
 export interface DataTransferRequest {
-  vendorId: string
-  messageId?: string
-  data?: string
+  vendorId: string;
+  messageId?: string;
+  data?: string;
 }
 ```
 
@@ -181,7 +184,7 @@ and run json-schema-to-typescript to regenerate this file.
 
 ```ts
 export interface DiagnosticsStatusNotificationRequest {
-  status: 'Idle' | 'Uploaded' | 'UploadFailed' | 'Uploading'
+  status: "Idle" | "Uploaded" | "UploadFailed" | "Uploading";
 }
 ```
 
@@ -195,7 +198,14 @@ and run json-schema-to-typescript to regenerate this file.
 
 ```ts
 export interface FirmwareStatusNotificationRequest {
-  status: 'Downloaded' | 'DownloadFailed' | 'Downloading' | 'Idle' | 'InstallationFailed' | 'Installing' | 'Installed'
+  status:
+    | "Downloaded"
+    | "DownloadFailed"
+    | "Downloading"
+    | "Idle"
+    | "InstallationFailed"
+    | "Installing"
+    | "Installed";
 }
 ```
 
@@ -209,9 +219,9 @@ and run json-schema-to-typescript to regenerate this file.
 
 ```ts
 export interface GetCompositeScheduleRequest {
-  connectorId: number
-  duration: number
-  chargingRateUnit?: 'A' | 'W'
+  connectorId: number;
+  duration: number;
+  chargingRateUnit?: "A" | "W";
 }
 ```
 
@@ -225,7 +235,7 @@ and run json-schema-to-typescript to regenerate this file.
 
 ```ts
 export interface GetConfigurationRequest {
-  key?: string[]
+  key?: string[];
 }
 ```
 
@@ -239,11 +249,11 @@ and run json-schema-to-typescript to regenerate this file.
 
 ```ts
 export interface GetDiagnosticsRequest {
-  location: string
-  retries?: number
-  retryInterval?: number
-  startTime?: string
-  stopTime?: string
+  location: string;
+  retries?: number;
+  retryInterval?: number;
+  startTime?: string;
+  stopTime?: string;
 }
 ```
 
@@ -281,68 +291,78 @@ and run json-schema-to-typescript to regenerate this file.
 
 ```ts
 export interface MeterValuesRequest {
-  connectorId: number
-  transactionId?: number
+  connectorId: number;
+  transactionId?: number;
   meterValue: {
-    timestamp: string
+    timestamp: string;
     sampledValue: {
-      value: string
+      value: string;
       context?:
-        | 'Interruption.Begin'
-        | 'Interruption.End'
-        | 'Sample.Clock'
-        | 'Sample.Periodic'
-        | 'Transaction.Begin'
-        | 'Transaction.End'
-        | 'Trigger'
-        | 'Other'
-      format?: 'Raw' | 'SignedData'
+        | "Interruption.Begin"
+        | "Interruption.End"
+        | "Sample.Clock"
+        | "Sample.Periodic"
+        | "Transaction.Begin"
+        | "Transaction.End"
+        | "Trigger"
+        | "Other";
+      format?: "Raw" | "SignedData";
       measurand?:
-        | 'Energy.Active.Export.Register'
-        | 'Energy.Active.Import.Register'
-        | 'Energy.Reactive.Export.Register'
-        | 'Energy.Reactive.Import.Register'
-        | 'Energy.Active.Export.Interval'
-        | 'Energy.Active.Import.Interval'
-        | 'Energy.Reactive.Export.Interval'
-        | 'Energy.Reactive.Import.Interval'
-        | 'Power.Active.Export'
-        | 'Power.Active.Import'
-        | 'Power.Offered'
-        | 'Power.Reactive.Export'
-        | 'Power.Reactive.Import'
-        | 'Power.Factor'
-        | 'Current.Import'
-        | 'Current.Export'
-        | 'Current.Offered'
-        | 'Voltage'
-        | 'Frequency'
-        | 'Temperature'
-        | 'SoC'
-        | 'RPM'
-      phase?: 'L1' | 'L2' | 'L3' | 'N' | 'L1-N' | 'L2-N' | 'L3-N' | 'L1-L2' | 'L2-L3' | 'L3-L1'
-      location?: 'Cable' | 'EV' | 'Inlet' | 'Outlet' | 'Body'
+        | "Energy.Active.Export.Register"
+        | "Energy.Active.Import.Register"
+        | "Energy.Reactive.Export.Register"
+        | "Energy.Reactive.Import.Register"
+        | "Energy.Active.Export.Interval"
+        | "Energy.Active.Import.Interval"
+        | "Energy.Reactive.Export.Interval"
+        | "Energy.Reactive.Import.Interval"
+        | "Power.Active.Export"
+        | "Power.Active.Import"
+        | "Power.Offered"
+        | "Power.Reactive.Export"
+        | "Power.Reactive.Import"
+        | "Power.Factor"
+        | "Current.Import"
+        | "Current.Export"
+        | "Current.Offered"
+        | "Voltage"
+        | "Frequency"
+        | "Temperature"
+        | "SoC"
+        | "RPM";
+      phase?:
+        | "L1"
+        | "L2"
+        | "L3"
+        | "N"
+        | "L1-N"
+        | "L2-N"
+        | "L3-N"
+        | "L1-L2"
+        | "L2-L3"
+        | "L3-L1";
+      location?: "Cable" | "EV" | "Inlet" | "Outlet" | "Body";
       unit?:
-        | 'Wh'
-        | 'kWh'
-        | 'varh'
-        | 'kvarh'
-        | 'W'
-        | 'kW'
-        | 'VA'
-        | 'kVA'
-        | 'var'
-        | 'kvar'
-        | 'A'
-        | 'V'
-        | 'K'
-        | 'Celcius'
-        | 'Fahrenheit'
-        | 'Percent'
-      [k: string]: unknown
-    }[]
-    [k: string]: unknown
-  }[]
+        | "Wh"
+        | "kWh"
+        | "varh"
+        | "kvarh"
+        | "W"
+        | "kW"
+        | "VA"
+        | "kVA"
+        | "var"
+        | "kvar"
+        | "A"
+        | "V"
+        | "K"
+        | "Celsius"
+        | "Fahrenheit"
+        | "Percent";
+      [k: string]: unknown;
+    }[];
+    [k: string]: unknown;
+  }[];
 }
 ```
 
@@ -356,32 +376,35 @@ and run json-schema-to-typescript to regenerate this file.
 
 ```ts
 export interface RemoteStartTransactionRequest {
-  connectorId?: number
-  idTag: string
+  connectorId?: number;
+  idTag: string;
   chargingProfile?: {
-    chargingProfileId: number
-    transactionId?: number
-    stackLevel: number
-    chargingProfilePurpose: 'ChargePointMaxProfile' | 'TxDefaultProfile' | 'TxProfile'
-    chargingProfileKind: 'Absolute' | 'Recurring' | 'Relative'
-    recurrencyKind?: 'Daily' | 'Weekly'
-    validFrom?: string
-    validTo?: string
+    chargingProfileId: number;
+    transactionId?: number;
+    stackLevel: number;
+    chargingProfilePurpose:
+      | "ChargePointMaxProfile"
+      | "TxDefaultProfile"
+      | "TxProfile";
+    chargingProfileKind: "Absolute" | "Recurring" | "Relative";
+    recurrencyKind?: "Daily" | "Weekly";
+    validFrom?: string;
+    validTo?: string;
     chargingSchedule: {
-      duration?: number
-      startSchedule?: string
-      chargingRateUnit: 'A' | 'W'
+      duration?: number;
+      startSchedule?: string;
+      chargingRateUnit: "A" | "W";
       chargingSchedulePeriod: {
-        startPeriod: number
-        limit: number
-        numberPhases?: number
-        [k: string]: unknown
-      }[]
-      minChargingRate?: number
-      [k: string]: unknown
-    }
-    [k: string]: unknown
-  }
+        startPeriod: number;
+        limit: number;
+        numberPhases?: number;
+        [k: string]: unknown;
+      }[];
+      minChargingRate?: number;
+      [k: string]: unknown;
+    };
+    [k: string]: unknown;
+  };
 }
 ```
 
@@ -395,7 +418,7 @@ and run json-schema-to-typescript to regenerate this file.
 
 ```ts
 export interface RemoteStopTransactionRequest {
-  transactionId: number
+  transactionId: number;
 }
 ```
 
@@ -409,11 +432,11 @@ and run json-schema-to-typescript to regenerate this file.
 
 ```ts
 export interface ReserveNowRequest {
-  connectorId: number
-  expiryDate: string
-  idTag: string
-  parentIdTag?: string
-  reservationId: number
+  connectorId: number;
+  expiryDate: string;
+  idTag: string;
+  parentIdTag?: string;
+  reservationId: number;
 }
 ```
 
@@ -427,7 +450,7 @@ and run json-schema-to-typescript to regenerate this file.
 
 ```ts
 export interface ResetRequest {
-  type: 'Hard' | 'Soft'
+  type: "Hard" | "Soft";
 }
 ```
 
@@ -441,16 +464,16 @@ and run json-schema-to-typescript to regenerate this file.
 
 ```ts
 export interface SendLocalListRequest {
-  listVersion: number
+  listVersion: number;
   localAuthorizationList?: {
-    idTag: string
+    idTag: string;
     idTagInfo?: {
-      status: 'Accepted' | 'Blocked' | 'Expired' | 'Invalid' | 'ConcurrentTx'
-      [k: string]: unknown
-    }
-    [k: string]: unknown
-  }[]
-  updateType: 'Differential' | 'Full'
+      status: "Accepted" | "Blocked" | "Expired" | "Invalid" | "ConcurrentTx";
+      [k: string]: unknown;
+    };
+    [k: string]: unknown;
+  }[];
+  updateType: "Differential" | "Full";
 }
 ```
 
@@ -464,31 +487,34 @@ and run json-schema-to-typescript to regenerate this file.
 
 ```ts
 export interface SetChargingProfileRequest {
-  connectorId: number
+  connectorId: number;
   csChargingProfiles: {
-    chargingProfileId: number
-    transactionId?: number
-    stackLevel: number
-    chargingProfilePurpose: 'ChargePointMaxProfile' | 'TxDefaultProfile' | 'TxProfile'
-    chargingProfileKind: 'Absolute' | 'Recurring' | 'Relative'
-    recurrencyKind?: 'Daily' | 'Weekly'
-    validFrom?: string
-    validTo?: string
+    chargingProfileId: number;
+    transactionId?: number;
+    stackLevel: number;
+    chargingProfilePurpose:
+      | "ChargePointMaxProfile"
+      | "TxDefaultProfile"
+      | "TxProfile";
+    chargingProfileKind: "Absolute" | "Recurring" | "Relative";
+    recurrencyKind?: "Daily" | "Weekly";
+    validFrom?: string;
+    validTo?: string;
     chargingSchedule: {
-      duration?: number
-      startSchedule?: string
-      chargingRateUnit: 'A' | 'W'
+      duration?: number;
+      startSchedule?: string;
+      chargingRateUnit: "A" | "W";
       chargingSchedulePeriod: {
-        startPeriod: number
-        limit: number
-        numberPhases?: number
-        [k: string]: unknown
-      }[]
-      minChargingRate?: number
-      [k: string]: unknown
-    }
-    [k: string]: unknown
-  }
+        startPeriod: number;
+        limit: number;
+        numberPhases?: number;
+        [k: string]: unknown;
+      }[];
+      minChargingRate?: number;
+      [k: string]: unknown;
+    };
+    [k: string]: unknown;
+  };
 }
 ```
 
@@ -502,11 +528,11 @@ and run json-schema-to-typescript to regenerate this file.
 
 ```ts
 export interface StartTransactionRequest {
-  connectorId: number
-  idTag: string
-  meterStart: number
-  reservationId?: number
-  timestamp: string
+  connectorId: number;
+  idTag: string;
+  meterStart: number;
+  reservationId?: number;
+  timestamp: string;
 }
 ```
 
@@ -520,38 +546,38 @@ and run json-schema-to-typescript to regenerate this file.
 
 ```ts
 export interface StatusNotificationRequest {
-  connectorId: number
+  connectorId: number;
   errorCode:
-    | 'ConnectorLockFailure'
-    | 'EVCommunicationError'
-    | 'GroundFailure'
-    | 'HighTemperature'
-    | 'InternalError'
-    | 'LocalListConflict'
-    | 'NoError'
-    | 'OtherError'
-    | 'OverCurrentFailure'
-    | 'PowerMeterFailure'
-    | 'PowerSwitchFailure'
-    | 'ReaderFailure'
-    | 'ResetFailure'
-    | 'UnderVoltage'
-    | 'OverVoltage'
-    | 'WeakSignal'
-  info?: string
+    | "ConnectorLockFailure"
+    | "EVCommunicationError"
+    | "GroundFailure"
+    | "HighTemperature"
+    | "InternalError"
+    | "LocalListConflict"
+    | "NoError"
+    | "OtherError"
+    | "OverCurrentFailure"
+    | "PowerMeterFailure"
+    | "PowerSwitchFailure"
+    | "ReaderFailure"
+    | "ResetFailure"
+    | "UnderVoltage"
+    | "OverVoltage"
+    | "WeakSignal";
+  info?: string;
   status:
-    | 'Available'
-    | 'Preparing'
-    | 'Charging'
-    | 'SuspendedEVSE'
-    | 'SuspendedEV'
-    | 'Finishing'
-    | 'Reserved'
-    | 'Unavailable'
-    | 'Faulted'
-  timestamp?: string
-  vendorId?: string
-  vendorErrorCode?: string
+    | "Available"
+    | "Preparing"
+    | "Charging"
+    | "SuspendedEVSE"
+    | "SuspendedEV"
+    | "Finishing"
+    | "Reserved"
+    | "Unavailable"
+    | "Faulted";
+  timestamp?: string;
+  vendorId?: string;
+  vendorErrorCode?: string;
 }
 ```
 
@@ -565,82 +591,92 @@ and run json-schema-to-typescript to regenerate this file.
 
 ```ts
 export interface StopTransactionRequest {
-  idTag?: string
-  meterStop: number
-  timestamp: string
-  transactionId: number
+  idTag?: string;
+  meterStop: number;
+  timestamp: string;
+  transactionId: number;
   reason?:
-    | 'EmergencyStop'
-    | 'EVDisconnected'
-    | 'HardReset'
-    | 'Local'
-    | 'Other'
-    | 'PowerLoss'
-    | 'Reboot'
-    | 'Remote'
-    | 'SoftReset'
-    | 'UnlockCommand'
-    | 'DeAuthorized'
+    | "EmergencyStop"
+    | "EVDisconnected"
+    | "HardReset"
+    | "Local"
+    | "Other"
+    | "PowerLoss"
+    | "Reboot"
+    | "Remote"
+    | "SoftReset"
+    | "UnlockCommand"
+    | "DeAuthorized";
   transactionData?: {
-    timestamp: string
+    timestamp: string;
     sampledValue: {
-      value: string
+      value: string;
       context?:
-        | 'Interruption.Begin'
-        | 'Interruption.End'
-        | 'Sample.Clock'
-        | 'Sample.Periodic'
-        | 'Transaction.Begin'
-        | 'Transaction.End'
-        | 'Trigger'
-        | 'Other'
-      format?: 'Raw' | 'SignedData'
+        | "Interruption.Begin"
+        | "Interruption.End"
+        | "Sample.Clock"
+        | "Sample.Periodic"
+        | "Transaction.Begin"
+        | "Transaction.End"
+        | "Trigger"
+        | "Other";
+      format?: "Raw" | "SignedData";
       measurand?:
-        | 'Energy.Active.Export.Register'
-        | 'Energy.Active.Import.Register'
-        | 'Energy.Reactive.Export.Register'
-        | 'Energy.Reactive.Import.Register'
-        | 'Energy.Active.Export.Interval'
-        | 'Energy.Active.Import.Interval'
-        | 'Energy.Reactive.Export.Interval'
-        | 'Energy.Reactive.Import.Interval'
-        | 'Power.Active.Export'
-        | 'Power.Active.Import'
-        | 'Power.Offered'
-        | 'Power.Reactive.Export'
-        | 'Power.Reactive.Import'
-        | 'Power.Factor'
-        | 'Current.Import'
-        | 'Current.Export'
-        | 'Current.Offered'
-        | 'Voltage'
-        | 'Frequency'
-        | 'Temperature'
-        | 'SoC'
-        | 'RPM'
-      phase?: 'L1' | 'L2' | 'L3' | 'N' | 'L1-N' | 'L2-N' | 'L3-N' | 'L1-L2' | 'L2-L3' | 'L3-L1'
-      location?: 'Cable' | 'EV' | 'Inlet' | 'Outlet' | 'Body'
+        | "Energy.Active.Export.Register"
+        | "Energy.Active.Import.Register"
+        | "Energy.Reactive.Export.Register"
+        | "Energy.Reactive.Import.Register"
+        | "Energy.Active.Export.Interval"
+        | "Energy.Active.Import.Interval"
+        | "Energy.Reactive.Export.Interval"
+        | "Energy.Reactive.Import.Interval"
+        | "Power.Active.Export"
+        | "Power.Active.Import"
+        | "Power.Offered"
+        | "Power.Reactive.Export"
+        | "Power.Reactive.Import"
+        | "Power.Factor"
+        | "Current.Import"
+        | "Current.Export"
+        | "Current.Offered"
+        | "Voltage"
+        | "Frequency"
+        | "Temperature"
+        | "SoC"
+        | "RPM";
+      phase?:
+        | "L1"
+        | "L2"
+        | "L3"
+        | "N"
+        | "L1-N"
+        | "L2-N"
+        | "L3-N"
+        | "L1-L2"
+        | "L2-L3"
+        | "L3-L1";
+      location?: "Cable" | "EV" | "Inlet" | "Outlet" | "Body";
       unit?:
-        | 'Wh'
-        | 'kWh'
-        | 'varh'
-        | 'kvarh'
-        | 'W'
-        | 'kW'
-        | 'VA'
-        | 'kVA'
-        | 'var'
-        | 'kvar'
-        | 'A'
-        | 'V'
-        | 'K'
-        | 'Celcius'
-        | 'Fahrenheit'
-        | 'Percent'
-      [k: string]: unknown
-    }[]
-    [k: string]: unknown
-  }[]
+        | "Wh"
+        | "kWh"
+        | "varh"
+        | "kvarh"
+        | "W"
+        | "kW"
+        | "VA"
+        | "kVA"
+        | "var"
+        | "kvar"
+        | "A"
+        | "V"
+        | "K"
+        | "Celsius"
+        | "Fahrenheit"
+        | "Percent";
+      [k: string]: unknown;
+    }[];
+    [k: string]: unknown;
+  }[];
 }
 ```
 
@@ -655,13 +691,13 @@ and run json-schema-to-typescript to regenerate this file.
 ```ts
 export interface TriggerMessageRequest {
   requestedMessage:
-    | 'BootNotification'
-    | 'DiagnosticsStatusNotification'
-    | 'FirmwareStatusNotification'
-    | 'Heartbeat'
-    | 'MeterValues'
-    | 'StatusNotification'
-  connectorId?: number
+    | "BootNotification"
+    | "DiagnosticsStatusNotification"
+    | "FirmwareStatusNotification"
+    | "Heartbeat"
+    | "MeterValues"
+    | "StatusNotification";
+  connectorId?: number;
 }
 ```
 
@@ -675,7 +711,7 @@ and run json-schema-to-typescript to regenerate this file.
 
 ```ts
 export interface UnlockConnectorRequest {
-  connectorId: number
+  connectorId: number;
 }
 ```
 
@@ -689,9 +725,9 @@ and run json-schema-to-typescript to regenerate this file.
 
 ```ts
 export interface UpdateFirmwareRequest {
-  location: string
-  retries?: number
-  retrieveDate: string
-  retryInterval?: number
+  location: string;
+  retries?: number;
+  retrieveDate: string;
+  retryInterval?: number;
 }
 ```
