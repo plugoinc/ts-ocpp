@@ -320,7 +320,7 @@ export default class CentralSystem {
       socket,
       // @ts-ignore, TS is not good with dependent typing, it doesn't realize that the function
       // returns OCPP v1.6 responses when the request is a OCPP v1.6 request
-      (request, validationError) => this.cpHandler(request, { ...metadata, validationError }),
+      (request, validationError, messageId) => this.cpHandler(request, { ...metadata, validationError }, messageId),
       chargePointActions,
       centralSystemActions,
       this.options.rejectInvalidRequests,

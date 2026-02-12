@@ -42,5 +42,8 @@ type Result<T> = Promise<T> | T;
  * @category Handler
  */
 export type RequestHandler<T extends ActionName<V>, Metadata = undefined, V extends OCPPVersion = OCPPVersion> =
-  (request: Request<T, V>, extra: Metadata) => Result<Response<T, V>>;
-
+  /**
+ * Returning `false` signals that the handler will respond later (no CALLRESULT is sent automatically).
+   * `messageId` is the id from the incoming message, useful when sending a deferred response.
+   */
+  (request: Request<T, V>, extra: Metadata, messageId?: string) => Result<Response<T, V> | false>;
