@@ -5,7 +5,7 @@ import { ActionName, Request, RequestHandler, Response } from '../messages';
 import { OCPPApplicationError, OCPPRequestError, OCPPRequestTimedOutError, ValidationError } from '../errors/index';
 import { validateMessageRequest } from '../messages/validation';
 import * as uuid from 'uuid';
-import { EitherAsync, Left, Right, Just, Nothing, MaybeAsync } from 'purify-ts';
+import { EitherAsync, Left, Right, Just, Nothing, MaybeAsync, Either } from 'purify-ts';
 import Debug from "debug";
 const debug = Debug("ts-ocpp:ws");
 
@@ -82,6 +82,17 @@ export default class Connection<ReqAction extends ActionName<'v1.6-json'>> {
     this.socket.close();
   }
 
+  public async sendResponseWithId(id: string, response: Response<ReqAction, 'v1.6-json'>): Promise<void> {
+    const { action: _action, ocppVersion: _ocppVersion, ...payload } = response as Response<ReqAction, 'v1.6-json'> & { ocppVersion?: string };
+    const message: OCPPJMessage = {
+      id,
+      type: MessageType.CALLRESULT,
+      payload,
+    };
+    this.handlers?.onSendResponse(message);
+    await this.sendOCPPMessage(message);
+  }
+
   private async sendOCPPMessage(message: OCPPJMessage): Promise<void> {
     return new Promise((resolve, reject) => {
       this.socket.send(stringifyOCPPMessage(message), err => {
@@ -113,15 +124,21 @@ export default class Connection<ReqAction extends ActionName<'v1.6-json'>> {
               })
               .chain(async ({ request, validationError }) => {
                 try {
-                  const response = await this.requestHandler(request, validationError);
+                  const response = await this.requestHandler(request, validationError, message.id);
                   return Right(response);
                 } catch (error: any) {
                   return Left(new OCPPApplicationError('on handling chargepoint request').wrap(error));
                 }
               });
 
+          if (response.isRight() && response.extract() === false) {
+            debug(`request handler for ${message.action} returned false, skipping automatic response for id ${message.id}`);
+            return Nothing;
+          }
+
           const formattedResponse =
-            response
+          // falseは上記で早期リターンしているため、EitherのRightから除外する
+            (response as Either<ValidationError | OCPPApplicationError, Response<ReqAction, "v1.6-json">>)
               // merge both failure and success to a OCPP-J message
               .either<OCPPJMessage>(fail => ({
                 id: message.id,
