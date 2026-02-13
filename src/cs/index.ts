@@ -8,13 +8,13 @@ import { ChargePointAction, chargePointActions } from '../messages/cp';
 import { Connection, OCPPJMessage, SUPPORTED_PROTOCOLS } from '../ws';
 import { CentralSystemAction, centralSystemActions } from '../messages/cs';
 import { OCPPRequestError, ValidationError } from '../errors';
-import { EitherAsync, Left } from 'purify-ts';
+import { EitherAsync, Left, Right } from 'purify-ts';
 import * as fs from 'fs';
 import * as path from 'path';
 import * as soap from 'soap';
 import * as uuid from 'uuid';
 import { IServices, ISoapServiceMethod } from 'soap';
-import { OCPPVersion } from '../types';
+import { OCPPVersion, OCPPVersionV16 } from '../types';
 import SOAPConnection from '../soap/connection';
 import Debug from "debug";
 const debug = Debug("ts-ocpp:cs");
@@ -189,6 +189,28 @@ export default class CentralSystem {
         }
       }
     })
+  }
+
+  sendResponseWithId<V extends OCPPVersionV16,T extends ChargePointAction>(
+    args: { chargePointId: string, messageId: string, response: Response<T, V> }
+  ): EitherAsync<OCPPRequestError, void> {
+    return EitherAsync.fromPromise(async () => {
+      const { chargePointId, messageId, response } = args;
+      const cpDebug = debug.extend(chargePointId);
+      if (!chargePointId) return Left(new OCPPRequestError('charge point id was not provided'));
+
+      const [connection] = this.connections[chargePointId] ?? [];
+      if (!connection) {
+        cpDebug('no connection found, cannot send deferred response');
+        return Left(new OCPPRequestError('there is no connection to this charge point'));
+      }
+
+      await connection.sendResponseWithId(
+        messageId,
+        response as Response<ChargePointAction, 'v1.6-json'>
+      );
+      return Right(undefined);
+    });
   }
 
   /** @internal */

@@ -3,7 +3,7 @@ import { parseOCPPMessage, stringifyOCPPMessage } from './format';
 import { MessageType, OCPPJMessage } from './types';
 import { ActionName, Request, RequestHandler, Response } from '../messages';
 import { OCPPApplicationError, OCPPRequestError, OCPPRequestTimedOutError, ValidationError } from '../errors/index';
-import { validateMessageRequest } from '../messages/validation';
+import { validateMessageRequest, validateMessageResponse } from '../messages/validation';
 import * as uuid from 'uuid';
 import { EitherAsync, Left, Right, Just, Nothing, MaybeAsync, Either } from 'purify-ts';
 import Debug from "debug";
@@ -84,6 +84,13 @@ export default class Connection<ReqAction extends ActionName<'v1.6-json'>> {
 
   public async sendResponseWithId(id: string, response: Response<ReqAction, 'v1.6-json'>): Promise<void> {
     const { action: _action, ocppVersion: _ocppVersion, ...payload } = response as Response<ReqAction, 'v1.6-json'> & { ocppVersion?: string };
+    const validateResult = validateMessageResponse(_action, payload, this.requestedActions);
+    if (validateResult.isLeft()) {
+      const message = validateResult.extract().toString();
+      debug(`response ${_action} with id ${id} is invalid: ${message}`);
+      throw new OCPPApplicationError(message);
+    }
+
     const message: OCPPJMessage = {
       id,
       type: MessageType.CALLRESULT,
