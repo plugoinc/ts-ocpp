@@ -205,10 +205,15 @@ export default class CentralSystem {
         return Left(new OCPPRequestError('there is no connection to this charge point'));
       }
 
-      await connection.sendResponseWithId(
-        messageId,
-        response as Response<ChargePointAction, 'v1.6-json'>
-      );
+      try {
+        await connection.sendResponseWithId(
+          messageId,
+          response as Response<ChargePointAction, 'v1.6-json'>
+        );
+      } catch (error: any) {
+        cpDebug('failed to send deferred response: %s', error?.message ?? String(error));
+        return Left(new OCPPRequestError(error?.message ?? 'failed to send deferred response'));
+      }
       return Right(undefined);
     });
   }
