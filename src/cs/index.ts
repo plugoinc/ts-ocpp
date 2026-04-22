@@ -168,6 +168,9 @@ export default class CentralSystem {
           // get the first available connection of this chargepoint
           cpDebug('getting connection from list of %d connections', this.connections[chargePointId]?.length);
           const [connection] = this.connections[args.chargePointId] ?? [];
+          cpDebug("send request:connections", this.connections);
+          cpDebug("send request:chargePointId", chargePointId);
+          cpDebug("send request:connection", connection);
           if (!connection) {
             cpDebug('no connection found, rejecting request');
             return Left(new OCPPRequestError('there is no connection to this charge point'));
